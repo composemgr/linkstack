@@ -1,0 +1,35 @@
+# nginx proxy address - http://172.17.0.1:59032
+
+name: linkstack
+x-logging: &default-logging
+  options:
+    max-size: '5m'
+    max-file: '1'
+  driver: json-file
+
+services:
+  app:
+    image: linkstackorg/linkstack:latest
+    container_name: linkstack-app
+    hostname: ${BASE_HOST_NAME:-$HOSTNAME}
+    restart: always
+    pull_policy: always
+    logging: *default-logging
+    environment:
+      TZ: ${TZ:-America/New_York}
+      PHP_MEMORY_LIMIT: 512M
+      UPLOAD_MAX_FILESIZE: 10G
+      HTTP_SERVER_NAME: ${BASE_HOST_NAME:-$HOSTNAME}
+      HTTPS_SERVER_NAME: ${BASE_HOST_NAME:-$HOSTNAME}
+      SERVER_ADMIN: ${APP_ADMIN_USER:-admin}@${BASE_DOMAIN_NAME:-${BASE_HOST_NAME}}
+    volumes:
+      - './rootfs/data/linkstack:/htdocs'
+    ports:
+      - '172.17.0.1:59032:80'
+    networks:
+      - linkstack
+
+networks:
+  linkstack:
+    name: linkstack
+    external: false
