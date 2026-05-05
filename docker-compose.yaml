@@ -23,7 +23,7 @@ services:
       HTTPS_SERVER_NAME: ${BASE_HOST_NAME:-$HOSTNAME}
       SERVER_ADMIN: ${APP_ADMIN_USER:-admin}@${BASE_DOMAIN_NAME:-${BASE_HOST_NAME}}
     volumes:
-      - './rootfs/data/linkstack:/htdocs'
+      - './volumes/data/linkstack:/htdocs'
     ports:
       - '172.17.0.1:59032:80'
     networks:
