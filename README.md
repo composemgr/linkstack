@@ -46,7 +46,7 @@ See `docker-compose.yaml` for complete list of configurable options.
 
 ## 📂 Volumes
 
-- `./rootfs/data/linkstack` - Data storage
+- `./volumes/data/linkstack` - Data storage
 
 ## 🔍 Logging
 
